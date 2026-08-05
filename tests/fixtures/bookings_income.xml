@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RequestedBookInfo xmlns="http://www.aade.gr/myDATA/bookInfo/v1.0">
-  <booksInfo>
+<RequestedBookInfo xmlns="http://www.aade.gr/myDATA/invoice/v1.0">
+  <bookInfo>
     <counterVatNumber>555555555</counterVatNumber>
     <issueDate>2026-07-31</issueDate>
     <invType>1.1</invType>
@@ -12,8 +12,8 @@
     <maxMark>400001000000103</maxMark>
     <classificationType>E3_561_001</classificationType>
     <classificationCategory>category1_1</classificationCategory>
-  </booksInfo>
-  <booksInfo>
+  </bookInfo>
+  <bookInfo>
     <counterVatNumber>666666666</counterVatNumber>
     <issueDate>2026-07-31</issueDate>
     <invType>2.1</invType>
@@ -25,5 +25,5 @@
     <maxMark>400001000000104</maxMark>
     <classificationType>E3_561_003</classificationType>
     <classificationCategory>category1_3</classificationCategory>
-  </booksInfo>
+  </bookInfo>
 </RequestedBookInfo>

@@ -142,10 +142,17 @@ def normalize_documents(
 
 
 def normalize_bookings(parsed: dict) -> tuple[list[BookingRecord], dict | None]:
-    """Return (records, continuation) from a RequestMyIncome/RequestMyExpenses response."""
+    """Return (records, continuation) from a RequestMyIncome/RequestMyExpenses response.
+
+    The live API emits <bookInfo> elements; the myDATA docs also mention
+    booksInfo, so both spellings are accepted.
+    """
     root = parsed.get("RequestedBookInfo") or {}
+    raw_records = root.get("bookInfo")
+    if raw_records is None:
+        raw_records = root.get("booksInfo")
     records: list[BookingRecord] = []
-    for raw in _as_list(root.get("booksInfo")):
+    for raw in _as_list(raw_records):
         if not isinstance(raw, dict):
             continue
         has_classification = raw.get("classificationCategory") or raw.get("classificationType")
@@ -163,7 +170,4 @@ def normalize_bookings(parsed: dict) -> tuple[list[BookingRecord], dict | None]:
                 classification=_classification(raw) if has_classification else None,
             )
         )
-    continuation = _continuation(
-        {"nextPartitionKey": root.get("nextPartitionKey"), "nextRowKey": root.get("nextRowKey")}
-    )
-    return records, continuation
+    return records, _continuation(root.get("continuationToken"))
