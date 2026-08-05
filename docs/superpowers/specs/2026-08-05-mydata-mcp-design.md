@@ -88,7 +88,7 @@ Environment variables only (never files in-repo, never logged):
 |---|---|---|
 | `MYDATA_USER_ID` | yes | AADE user id (`aade-user-id` header) |
 | `MYDATA_SUBSCRIPTION_KEY` | yes | Subscription key (`Ocp-Apim-Subscription-Key` header) |
-| `MYDATA_ENV` | no (default `production`) | `production` → `https://mydatapi.aade.gr/myDATA/`; `sandbox` → AADE dev API base URL |
+| `MYDATA_ENV` | no (default `production`) | `production` → `https://mydatapi.aade.gr/myDATA/`; `sandbox` → `https://mydataapidev.aade.gr/` |
 
 Missing required vars → server starts but every tool returns a clear configuration error
 message (so client setup problems are self-diagnosing inside the LLM conversation).
@@ -106,7 +106,7 @@ Common parameters:
 
 | Tool | Endpoint | Extra params | Returns |
 |---|---|---|---|
-| `get_received_documents` | RequestDocs | `include_details` (bool, default false) | list of received documents |
+| `get_received_documents` | RequestDocs | `counterpart_vat`, `invoice_type`, `include_details` (bool, default false) | list of received documents |
 | `get_transmitted_documents` | RequestTransmittedDocs | `counterpart_vat`, `invoice_type`, `include_details` | list of issued documents |
 | `get_income_summary` | RequestMyIncome | `counterpart_vat` | income bookings per classification |
 | `get_expense_summary` | RequestMyExpenses | `counterpart_vat` | expense bookings per classification |
