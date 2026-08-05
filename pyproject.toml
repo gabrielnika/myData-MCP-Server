@@ -1,0 +1,45 @@
+[project]
+name = "mydata-mcp"
+version = "0.1.0"
+description = "Read-only MCP server for the Greek AADE myDATA e-books API"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Gabriel Nika" }]
+keywords = ["mcp", "mydata", "aade", "greece", "invoices", "e-books", "llm"]
+dependencies = [
+    "fastmcp>=2.0",
+    "httpx>=0.27",
+    "xmltodict>=0.13",
+    "lxml>=5.0",
+    "pydantic>=2.0",
+]
+
+[project.scripts]
+mydata-mcp = "mydata_mcp.server:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "respx>=0.21",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mydata_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
