@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RequestedBookInfo xmlns="http://www.aade.gr/myDATA/bookInfo/v1.0">
+  <booksInfo>
+    <counterVatNumber>555555555</counterVatNumber>
+    <issueDate>2026-07-31</issueDate>
+    <invType>1.1</invType>
+    <netValue>1500.00</netValue>
+    <vatAmount>360.00</vatAmount>
+    <grossValue>1860.00</grossValue>
+    <count>3</count>
+    <minMark>400001000000101</minMark>
+    <maxMark>400001000000103</maxMark>
+    <classificationType>E3_561_001</classificationType>
+    <classificationCategory>category1_1</classificationCategory>
+  </booksInfo>
+  <booksInfo>
+    <counterVatNumber>666666666</counterVatNumber>
+    <issueDate>2026-07-31</issueDate>
+    <invType>2.1</invType>
+    <netValue>800.00</netValue>
+    <vatAmount>192.00</vatAmount>
+    <grossValue>992.00</grossValue>
+    <count>1</count>
+    <minMark>400001000000104</minMark>
+    <maxMark>400001000000104</maxMark>
+    <classificationType>E3_561_003</classificationType>
+    <classificationCategory>category1_3</classificationCategory>
+  </booksInfo>
+</RequestedBookInfo>

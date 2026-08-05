@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RequestedDoc xmlns="http://www.aade.gr/myDATA/invoice/v1.0">
+  <invoicesDoc>
+    <invoice>
+      <uid>2CC3DD4EE5FF6AA7BB8CC9DD0EE1FF2AA3BB4CC5</uid>
+      <mark>400001000000003</mark>
+      <issuer>
+        <vatNumber>444444444</vatNumber>
+        <country>GR</country>
+        <branch>0</branch>
+        <name>THIRD SUPPLIER OE</name>
+      </issuer>
+      <counterpart>
+        <vatNumber>222222222</vatNumber>
+        <country>GR</country>
+        <branch>0</branch>
+      </counterpart>
+      <invoiceHeader>
+        <series>B</series>
+        <aa>77</aa>
+        <issueDate>2026-07-20</issueDate>
+        <invoiceType>2.1</invoiceType>
+        <currency>EUR</currency>
+      </invoiceHeader>
+      <invoiceDetails>
+        <lineNumber>1</lineNumber>
+        <netValue>200.00</netValue>
+        <vatCategory>1</vatCategory>
+        <vatAmount>48.00</vatAmount>
+      </invoiceDetails>
+      <invoiceSummary>
+        <totalNetValue>200.00</totalNetValue>
+        <totalVatAmount>48.00</totalVatAmount>
+        <totalGrossValue>248.00</totalGrossValue>
+      </invoiceSummary>
+    </invoice>
+  </invoicesDoc>
+</RequestedDoc>
