@@ -77,7 +77,9 @@ def _raise_on_business_error(parsed: dict) -> None:
         if status and str(status).lower() != "success":
             errors = (resp.get("errors") or {}).get("error")
             errors = errors if isinstance(errors, list) else ([errors] if errors else [])
-            messages = [str(e["message"]) for e in errors if isinstance(e, dict) and e.get("message")]
+            messages = [
+                str(e["message"]) for e in errors if isinstance(e, dict) and e.get("message")
+            ]
             detail = "; ".join(messages) or str(status)
             raise MyDataError(f"myDATA returned an error: {detail}")
 
