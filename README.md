@@ -7,7 +7,7 @@ and expenses — in plain language. All myDATA codes (document types, VAT
 categories, E3 classifications) are decoded into human-readable bilingual labels
 before they ever reach the model.
 
-[![CI](https://github.com/GabrielNika/mydata-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/GabrielNika/mydata-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/nikagabriel741agent/myData-MCP-Server/actions/workflows/ci.yml/badge.svg)](https://github.com/nikagabriel741agent/myData-MCP-Server/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -62,7 +62,7 @@ Register at [mydata.aade.gr](https://www.aade.gr/mydata) to obtain your
   "mcpServers": {
     "mydata": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/GabrielNika/mydata-mcp", "mydata-mcp"],
+      "args": ["--from", "git+https://github.com/nikagabriel741agent/myData-MCP-Server", "mydata-mcp"],
       "env": {
         "MYDATA_USER_ID": "your-user-id",
         "MYDATA_SUBSCRIPTION_KEY": "your-subscription-key"
