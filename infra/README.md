@@ -12,6 +12,7 @@ flowchart LR
     CI -->|deploy revision| CR["Cloud Run v2<br/>(scale to zero)"]
     AR -->|image pull| CR
     SM["Secret Manager<br/>(myDATA credentials)"] -->|env vars at startup| CR
+    CR -->|usage events| BQ["BigQuery<br/>(audit dataset)"]
     Client["MCP client"] -->|"HTTPS + IAM auth (/mcp)"| CR
 ```
 
@@ -28,6 +29,7 @@ flowchart LR
 | `iam.tf` | least-privilege runtime service account |
 | `cloud_run.tf` | the service: scaling, resources, secret-backed env vars |
 | `github_ci.tf` | WIF pool/provider + CI service account and its grants |
+| `bigquery.tf` | audit dataset/table + table-level insert grant |
 | `outputs.tf` | service URL, registry URL, WIF provider, CI SA |
 
 Not committed (see `*.example` templates): `terraform.tfvars` (project id,

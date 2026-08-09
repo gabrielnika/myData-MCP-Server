@@ -25,6 +25,11 @@ resource "google_cloud_run_v2_service" "mcp" {
       }
 
       env {
+        name  = "AUDIT_TABLE"
+        value = "${var.project_id}.${google_bigquery_dataset.audit.dataset_id}.${google_bigquery_table.events.table_id}"
+      }
+
+      env {
         name = "MYDATA_USER_ID"
         value_source {
           secret_key_ref {

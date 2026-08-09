@@ -1,11 +1,12 @@
 """myDATA MCP server — read-only access to Greek AADE myDATA e-books."""
 
 import os
+import time
 
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 
-from . import codes
+from . import audit, codes
 from .client import MyDataClient, MyDataError
 from .models import BookingRecord, Document
 
@@ -38,21 +39,31 @@ def _booking_response(records: list[BookingRecord], has_more: bool) -> dict:
     }
 
 
+def _elapsed_ms(started: float) -> int:
+    return int((time.monotonic() - started) * 1000)
+
+
 async def _fetch_documents(endpoint: str, **kwargs) -> dict:
+    started = time.monotonic()
     try:
         client = MyDataClient()
         docs, has_more = await client.fetch_documents(endpoint, **kwargs)
     except (MyDataError, ValueError) as exc:
+        await audit.record(endpoint, "error", _elapsed_ms(started), error_type=type(exc).__name__)
         raise ToolError(str(exc)) from exc
+    await audit.record(endpoint, "success", _elapsed_ms(started), result_count=len(docs))
     return _doc_response(docs, has_more)
 
 
 async def _fetch_bookings(endpoint: str, **kwargs) -> dict:
+    started = time.monotonic()
     try:
         client = MyDataClient()
         records, has_more = await client.fetch_bookings(endpoint, **kwargs)
     except (MyDataError, ValueError) as exc:
+        await audit.record(endpoint, "error", _elapsed_ms(started), error_type=type(exc).__name__)
         raise ToolError(str(exc)) from exc
+    await audit.record(endpoint, "success", _elapsed_ms(started), result_count=len(records))
     return _booking_response(records, has_more)
 
 

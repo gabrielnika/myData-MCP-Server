@@ -122,11 +122,26 @@ material. Each entry: what we chose, what we rejected, why.
   container. The cost: MCP clients must send an identity token. Public would
   be one `run.invoker` binding for `allUsers` away, if it ever made sense.
 
+## Audit logging (BigQuery)
+
+- **Streaming REST insert over the official client library.** The
+  `google-cloud-bigquery` package drags a large dependency tree into the
+  image (cold-start cost); the streaming `insertAll` endpoint is one httpx
+  POST, and httpx was already a dependency. Tokens come from the Cloud Run
+  metadata server — the same mechanism ADC uses under the hood — so the
+  feature needs zero new dependencies and zero stored credentials.
+- **Fire-and-forget by design:** 3s timeout, all exceptions swallowed. An
+  audit outage must never break or visibly slow a tool call.
+- **Metadata only** (tool, status, duration, result count, error type) —
+  never AADE payload contents. Day-partitioned on `ts`.
+- **Toggle by presence:** the hook is active only when `AUDIT_TABLE`
+  (`project.dataset.table`) is set — Terraform sets it on Cloud Run; locally
+  it is absent and every call is a no-op.
+- **Table-level IAM:** the runtime SA gets `dataEditor` on the single events
+  table — even finer than the per-secret grants.
+
 ## Not done (deliberately)
 
-- **BigQuery audit logging** — spec marks it optional; would add a dataset +
-  table, a `dataEditor` grant, and an insert hook per tool call (metadata
-  only, never AADE payloads). Good future exercise on top of a working stack.
 - Custom domain, Cloud Armor, multi-env (staging/prod). For a second
   environment: same code, new tfvars + backend prefix — that's the payoff of
   keeping personal values out of the module.
