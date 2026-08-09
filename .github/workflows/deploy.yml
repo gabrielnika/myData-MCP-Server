@@ -3,6 +3,11 @@ name: Deploy
 on:
   push:
     branches: [main]
+    # Docs and Terraform changes don't alter the served code — skip the deploy.
+    paths-ignore:
+      - "**.md"
+      - "infra/**"
+      - "docs/**"
 
 env:
   REGION: europe-west1
