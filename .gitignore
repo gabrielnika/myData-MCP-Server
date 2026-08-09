@@ -6,3 +6,11 @@ __pycache__/
 dist/
 *.egg-info/
 .env
+
+# Terraform — state, local plugin cache, and files with personal values
+infra/.terraform/
+*.tfstate
+*.tfstate.*
+infra/terraform.tfvars
+infra/backend.hcl
+*.tfplan

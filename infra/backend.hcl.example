@@ -1,0 +1,2 @@
+# Copy to backend.hcl and fill in your state bucket. backend.hcl is gitignored.
+bucket = "your-tfstate-bucket-name"
