@@ -6,6 +6,7 @@ import respx
 from fastmcp import Client
 from httpx import Response
 
+from mydata_mcp import server
 from mydata_mcp.client import PRODUCTION_BASE
 from mydata_mcp.server import mcp
 
@@ -118,6 +119,23 @@ async def test_code_table_resources():
         content = await client.read_resource("mydata://codes/invoice-types")
         body = json.loads(content[0].text)
         assert body["1.1"]["en"] == "Sales Invoice"
+
+
+def test_main_defaults_to_stdio(monkeypatch):
+    recorded = {}
+    monkeypatch.delenv("MCP_TRANSPORT", raising=False)
+    monkeypatch.setattr(server.mcp, "run", lambda *a, **kw: recorded.update({"a": a, "kw": kw}))
+    server.main()
+    assert recorded == {"a": (), "kw": {}}
+
+
+def test_main_http_transport_binds_cloud_run_port(monkeypatch):
+    recorded = {}
+    monkeypatch.setenv("MCP_TRANSPORT", "http")
+    monkeypatch.setenv("PORT", "9999")
+    monkeypatch.setattr(server.mcp, "run", lambda *a, **kw: recorded.update(kw))
+    server.main()
+    assert recorded == {"transport": "http", "host": "0.0.0.0", "port": 9999}
 
 
 async def test_monthly_review_prompt():

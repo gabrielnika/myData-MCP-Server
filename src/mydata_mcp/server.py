@@ -1,5 +1,7 @@
 """myDATA MCP server — read-only access to Greek AADE myDATA e-books."""
 
+import os
+
 from fastmcp import FastMCP
 from fastmcp.exceptions import ToolError
 
@@ -216,7 +218,12 @@ Present amounts in EUR with thousands separators."""
 
 
 def main() -> None:
-    mcp.run()
+    """Serve over stdio by default; MCP_TRANSPORT=http switches to streamable
+    HTTP on 0.0.0.0:$PORT for container platforms like Cloud Run."""
+    if os.environ.get("MCP_TRANSPORT", "stdio").strip().lower() == "http":
+        mcp.run(transport="http", host="0.0.0.0", port=int(os.environ.get("PORT", "8080")))
+    else:
+        mcp.run()
 
 
 if __name__ == "__main__":
