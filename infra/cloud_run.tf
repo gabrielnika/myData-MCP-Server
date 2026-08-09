@@ -46,6 +46,12 @@ resource "google_cloud_run_v2_service" "mcp" {
     }
   }
 
+  # CI deploys new images per commit; Terraform must not "correct" the image
+  # back to the tag above. Terraform owns config, CI owns the running image.
+  lifecycle {
+    ignore_changes = [template[0].containers[0].image]
+  }
+
   # Cloud Run validates secret access on deploy; make sure the IAM grants
   # exist first instead of racing them.
   depends_on = [google_secret_manager_secret_iam_member.runtime_reads_secrets]

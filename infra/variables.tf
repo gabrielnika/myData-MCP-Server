@@ -3,6 +3,11 @@ variable "project_id" {
   type        = string
 }
 
+variable "github_repository" {
+  description = "GitHub repository (owner/name) allowed to deploy via Workload Identity Federation."
+  type        = string
+}
+
 variable "region" {
   description = "Region for all regional resources (Artifact Registry, Cloud Run)."
   type        = string

@@ -1,5 +1,6 @@
 # Copy to terraform.tfvars and fill in your values. terraform.tfvars is gitignored.
-project_id = "your-gcp-project-id"
+project_id        = "your-gcp-project-id"
+github_repository = "your-github-user/your-repo"
 
 # Optional — defaults to europe-west1:
 # region = "europe-west1"
